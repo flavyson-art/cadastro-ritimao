@@ -1,0 +1,51 @@
+<form id="cadastroRitimao">
+  <div class="campo">
+    <label>Nome Completo:</label>
+    <input type="text" id="nome" required>
+  </div>
+
+  <div class="campo">
+    <label>Idade:</label>
+    <input type="number" id="idade" onchange="verificarMenor(this.value)" required>
+  </div>
+
+  <div id="secaoResponsavel" style="display:none;">
+    <label>Nome do Responsável:</label>
+    <input type="text" id="nomeResp">
+    <label>Telefone do Responsável:</label>
+    <input type="tel" id="telResp">
+  </div>
+
+  <div class="campo">
+    <label>Instrumento de Interesse (Apenas um):</label>
+    <select id="instrumento" required>
+      <option value="">Selecione...</option>
+      <option value="cuica">Cuíca</option>
+      <option value="chocalho">Chocalho</option>
+      <option value="xequere">Xequeré</option>
+      <option value="tamborim">Tamborim</option>
+      <option value="timbal">Timbal</option>
+      <option value="caixa">Caixa</option>
+      <option value="repique">Repique</option>
+      <option value="surdo3">Surdo de Terceira</option>
+      <option value="surdo1">Surdo de Primeira</option>
+      <option value="surdo2">Surdo de Segunda</option>
+    </select>
+  </div>
+
+  <div class="campo">
+    <label>É sócio dos Gaviões?</label>
+    <select id="isSocio" onchange="toggleSocio(this.value)">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+    <input type="text" id="numSocio" placeholder="Número de Sócio" style="display:none;">
+  </div>
+
+  <div class="campo">
+    <label>Anexar Foto:</label>
+    <input type="file" id="foto" accept="image/*" required>
+  </div>
+
+  <button type="submit" id="btnEnviar">Cadastrar na Ritimão</button>
+</form>
