@@ -1,51 +1,212 @@
-<form id="cadastroRitimao">
-  <div class="campo">
-    <label>Nome Completo:</label>
-    <input type="text" id="nome" required>
-  </div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Ritimão - Gaviões da Fiel</title>
+    <style>
+        /* CSS - Identidade Gaviões da Fiel */
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111;
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        h1 { text-align: center; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid #fff; padding-bottom: 10px; }
+        .campo { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background: #222;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        button:hover { background: #ccc; }
+        button:disabled { background: #555; cursor: not-allowed; }
+        .info-menor { background: #222; padding: 10px; border-left: 3px solid #fff; margin-top: 10px; display: none; }
+    </style>
+</head>
+<body>
 
-  <div class="campo">
-    <label>Idade:</label>
-    <input type="number" id="idade" onchange="verificarMenor(this.value)" required>
-  </div>
+<div class="container">
+    <h1>Escolinha Ritimão</h1>
+    <p style="text-align: center; font-size: 0.8em; color: #888;">Cadastro de Alunos - Bateria Relação Forte</p>
+    
+    <form id="formCadastro">
+        <div class="campo">
+            <label>Nome Completo:</label>
+            <input type="text" id="nome" required>
+        </div>
 
-  <div id="secaoResponsavel" style="display:none;">
-    <label>Nome do Responsável:</label>
-    <input type="text" id="nomeResp">
-    <label>Telefone do Responsável:</label>
-    <input type="tel" id="telResp">
-  </div>
+        <div class="campo" style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label>Idade:</label>
+                <input type="number" id="idade" required onchange="verificarIdade(this.value)">
+            </div>
+            <div style="flex: 1;">
+                <label>Sexo:</label>
+                <select id="sexo" required>
+                    <option value="">Selecione...</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Outro">Outro</option>
+                </select>
+            </div>
+        </div>
 
-  <div class="campo">
-    <label>Instrumento de Interesse (Apenas um):</label>
-    <select id="instrumento" required>
-      <option value="">Selecione...</option>
-      <option value="cuica">Cuíca</option>
-      <option value="chocalho">Chocalho</option>
-      <option value="xequere">Xequeré</option>
-      <option value="tamborim">Tamborim</option>
-      <option value="timbal">Timbal</option>
-      <option value="caixa">Caixa</option>
-      <option value="repique">Repique</option>
-      <option value="surdo3">Surdo de Terceira</option>
-      <option value="surdo1">Surdo de Primeira</option>
-      <option value="surdo2">Surdo de Segunda</option>
-    </select>
-  </div>
+        <div id="secaoResponsavel" class="info-menor">
+            <label>Nome do Responsável:</label>
+            <input type="text" id="nomeResp">
+            <label>Telefone do Responsável:</label>
+            <input type="tel" id="telResp">
+        </div>
 
-  <div class="campo">
-    <label>É sócio dos Gaviões?</label>
-    <select id="isSocio" onchange="toggleSocio(this.value)">
-      <option value="nao">Não</option>
-      <option value="sim">Sim</option>
-    </select>
-    <input type="text" id="numSocio" placeholder="Número de Sócio" style="display:none;">
-  </div>
+        <div class="campo">
+            <label>Telefone (WhatsApp):</label>
+            <input type="tel" id="telefone" required placeholder="(11) 99999-9999">
+        </div>
 
-  <div class="campo">
-    <label>Anexar Foto:</label>
-    <input type="file" id="foto" accept="image/*" required>
-  </div>
+        <div class="campo">
+            <label>E-mail:</label>
+            <input type="email" id="email" required>
+        </div>
 
-  <button type="submit" id="btnEnviar">Cadastrar na Ritimão</button>
-</form>
+        <div class="campo">
+            <label>Instrumento de Interesse (Apenas 1):</label>
+            <select id="instrumento" required>
+                <option value="">Selecione...</option>
+                <option value="Cuíca">Cuíca</option>
+                <option value="Chocalho">Chocalho</option>
+                <option value="Xequeré">Xequeré</option>
+                <option value="Tamborim">Tamborim</option>
+                <option value="Timbal">Timbal</option>
+                <option value="Caixa">Caixa</option>
+                <option value="Repique">Repique</option>
+                <option value="Surdo de Terceira">Surdo de Terceira</option>
+                <option value="Surdo de Primeira">Surdo de Primeira</option>
+                <option value="Surdo de Segunda">Surdo de Segunda</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>Nível:</label>
+            <select id="nivel" required>
+                <option value="Iniciante">Iniciante</option>
+                <option value="Intermediário">Intermediário</option>
+                <option value="Avançado">Avançado</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label>É sócio da Torcida Gaviões da Fiel?</label>
+            <select id="isSocio" onchange="toggleSocio(this.value)">
+                <option value="Não">Não</option>
+                <option value="Sim">Sim</option>
+            </select>
+            <input type="text" id="numSocio" placeholder="Número do sócio" style="display:none; margin-top:10px;">
+        </div>
+
+        <div class="campo">
+            <label>Foto do Aluno:</label>
+            <input type="file" id="foto" accept="image/*" required>
+        </div>
+
+        <div class="campo">
+            <label>Observações:</label>
+            <textarea id="obs" rows="3"></textarea>
+        </div>
+
+        <button type="submit" id="btnEnviar">Concluir Cadastro</button>
+    </form>
+</div>
+
+<script>
+    // --- CONFIGURAÇÃO ---
+    const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbz02UqSrJ694G6hRkVwLkr_wA28-juV9C0zNh-TQvI8lkV_n0xgH0kRP8MhJ-rCCXEY/exec"; 
+
+    function verificarIdade(idade) {
+        const secao = document.getElementById('secaoResponsavel');
+        secao.style.display = (idade > 0 && idade < 18) ? 'block' : 'none';
+    }
+
+    function toggleSocio(valor) {
+        document.getElementById('numSocio').style.display = (valor === 'Sim') ? 'block' : 'none';
+    }
+
+    const converterBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btnEnviar');
+        btn.disabled = true;
+        btn.innerText = "Enviando...";
+
+        try {
+            const arquivoFoto = document.getElementById('foto').files[0];
+            const fotoBase64 = arquivoFoto ? await converterBase64(arquivoFoto) : "";
+
+            const dados = {
+                nome: document.getElementById('nome').value,
+                idade: document.getElementById('idade').value,
+                sexo: document.getElementById('sexo').value,
+                telefone: document.getElementById('telefone').value,
+                email: document.getElementById('email').value,
+                instrumento: document.getElementById('instrumento').value,
+                nivel: document.getElementById('nivel').value,
+                socio: document.getElementById('isSocio').value,
+                numSocio: document.getElementById('numSocio').value,
+                responsavel: document.getElementById('nomeResp').value + " - " + document.getElementById('telResp').value,
+                obs: document.getElementById('obs').value,
+                fotoBase64: fotoBase64
+            };
+
+            await fetch(URL_PLANILHA, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(dados)
+            });
+
+            alert("✅ Cadastro realizado com sucesso na Ritimão!");
+            document.getElementById('formCadastro').reset();
+            verificarIdade(0);
+        } catch (erro) {
+            alert("Erro ao enviar cadastro. Verifique a conexão.");
+        } finally {
+            btn.disabled = false;
+            btn.innerText = "Concluir Cadastro";
+        }
+    });
+</script>
+
+</body>
+</html>
